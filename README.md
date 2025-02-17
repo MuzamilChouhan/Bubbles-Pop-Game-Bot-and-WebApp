@@ -21,7 +21,7 @@
 
 ## 🎥 Demo
 
-[Click here to play the game!](https://your-game-link.com)
+[Click here to play the game!](https://bubblespopgame.netlify.app/)
 
 ---
 
@@ -77,7 +77,7 @@
 ### 1️⃣ Clone the Repository
 
 ```sh
-git clone https://github.com/your-username/mood-game.git
+git clone https://github.com/muzamilchouhan/mood-game.git
 cd mood-game
 ```
 
@@ -136,7 +136,7 @@ This project is **open-source** under the MIT License.
 
 ## 👨‍💻 Developer
 
-Made with ❤️ by **[Your Name]**. Connect with me on [GitHub](https://github.com/your-username) or [Twitter](https://twitter.com/your-handle)!
+Made with ❤️ by **Muzamil Chouhan**. Connect with me on [GitHub](https://github.com/muzamilchouhan) or [Twitter](https://x.com/muzamilchouhan_?s=09)!
 
 ---
 
