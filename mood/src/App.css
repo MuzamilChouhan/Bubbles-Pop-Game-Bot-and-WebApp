@@ -1,0 +1,351 @@
+/* Import Custom Font */
+@font-face {
+  font-family: 'JungleAdventurer';
+  src: url('/public/assets/JungleAdventurer.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Global Styles with a dynamic, multi-colored gradient background */
+body {
+  font-family: 'JungleAdventurer', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Layered backgrounds: a soft radial gradient over an enhanced linear gradient with more colors */
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05), transparent 80%),
+    linear-gradient(135deg, 
+      #141e30, 
+      #243b55, 
+      #1e3c72, 
+      #2a5298, 
+      #355c7d, 
+      #6c5b7b, 
+      #c06c84, 
+      #ff7e5f, 
+      #feb47b, 
+      #ff7e5f, 
+      #c06c84
+    );
+  background-size: 400% 400%, 400% 400%;
+  animation: gradientAnimation 12s ease infinite;
+  color: #fff;
+  overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%, 0% 50%; }
+  50% { background-position: 100% 50%, 100% 50%; }
+  100% { background-position: 0% 50%, 0% 50%; }
+}
+
+/* Glass-like 3D Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  padding: 20px 30px;
+  margin: 10px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Left (Title) */
+.header-left h1 {
+  margin: 0;
+  font-size: 1.8em;
+  letter-spacing: 1px;
+}
+
+/* Header Right (Info & Menu Icon) */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.info {
+  text-align: right;
+  font-size: 0.9em;
+}
+
+.info p {
+  margin: 2px 0;
+}
+
+/* Enlarged Timer & Current Score Styles */
+.timer {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+.current-score {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+/* Menu Icon (Hamburger) */
+.menu-icon {
+  width: 30px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-icon .bar {
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* Start Overlay with Glassmorphism */
+.start-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.85);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.start-overlay h1 {
+  font-size: 2.5em;
+  padding: 20px 40px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* Game Area */
+.game-area {
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+  overflow: hidden;
+}
+
+/* Transparent Dynamic Bubble */
+.bubble {
+  position: absolute;
+  width: var(--bubble-size, 50px);
+  height: var(--bubble-size, 50px);
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.7);
+  animation: fall var(--bubble-speed, 5s) linear forwards;
+  transform-origin: center;
+}
+
+/* Pulsating Border Effect on Bubbles */
+.bubble::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  animation: pulseBorder 3s ease-in-out infinite;
+}
+
+@keyframes pulseBorder {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.6; }
+}
+
+/* Moving Dot Along Bubble Circumference */
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: moveDot 4s linear infinite;
+}
+
+@keyframes moveDot {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translate(0, -calc(var(--bubble-size, 50px)/2)) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translate(0, -calc(var(--bubble-size, 50px)/2)) rotate(-360deg);
+  }
+}
+
+/* Falling Animation for Bubbles */
+@keyframes fall {
+  from {
+    transform: translateY(-100px) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100vh) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+/* Glassmorphic Game Over Modal */
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.85);
+  padding: 20px 40px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.5em;
+  z-index: 101;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* Menu Modal for Pause/Resume, Mute/Unmute, Score History, & Exit */
+.menu-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.75);
+  z-index: 110;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-modal-content {
+  background: rgba(0,0,0,0.9);
+  padding: 20px 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  max-width: 320px;
+}
+
+.menu-modal-content h2 {
+  margin-top: 0;
+}
+
+/* Menu Buttons Layout */
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Score History List in Menu Modal */
+.menu-modal-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.menu-modal-content li {
+  margin: 8px 0;
+  font-size: 1.2em;
+}
+
+/* Score History Additional Styles */
+.history-header {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #ffeb3b;
+}
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.history-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  font-size: 0.95em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.history-index {
+  font-weight: bold;
+}
+.history-score,
+.history-level,
+.history-date {
+  color: #ffffff;
+}
+
+/* Difficulty Selection Styles in Menu Modal */
+.difficulty-selection {
+  margin-top: 15px;
+}
+.difficulty-selection p {
+  margin: 0 0 8px 0;
+  font-size: 1em;
+}
+.difficulty-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+.difficulty-buttons button {
+  flex: 1;
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: #fff;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+.difficulty-buttons button.active,
+.difficulty-buttons button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Common Styled Button */
+button {
+  padding: 12px 24px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  transition: transform 0.3s, background 0.3s;
+  font-family: 'JungleAdventurer', sans-serif;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+}
